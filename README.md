@@ -1,8 +1,8 @@
-# Survivor Sequence Framework: Core Definitions and Initial Implications
+# Survivor Sequence Framework: Foundational Definitions
 
 ## 1. Overview
 
-This document outlines the foundational definitions for a mathematical framework built upon constrained periodic binary sequences. The core objects are **Survivor Sequence Classes**, which exhibit specific number-theoretic properties. A central component of the framework is the **Rational Projection Map (`φ'`)**, establishing a bijection between the set of survivor classes with period `n ≥ 2` and the rational numbers `Q`, thereby linking discrete combinatorics to arithmetic and geometry. This document also explores preliminary answers and implications for the immediate goals of the framework based on these definitions.
+This document outlines the foundational definitions for a mathematical framework built upon constrained periodic binary sequences. The core objects are **Survivor Sequence Classes**, characterized by number-theoretic constraints based on their minimal period structure. A central component is the **Rational Projection Map (`φ'`)**, establishing a bijection between the set of survivor classes with period `n ≥ 2` and the rational numbers `Q`. This map links discrete combinatorics with the arithmetic structure of rational numbers. The structure implied by `φ'` has a primary geometric interpretation where all rational values (and thus all corresponding sequence classes) are represented on **one semicircle**, distinguishing two main "quarters" based on the sign of the projected rational value.
 
 ## 2. Periodic Binary Sequences and Equivalence Classes
 
@@ -45,15 +45,15 @@ Let `Σ` denote the set of all Survivor Sequence Classes. Let `Σ' = Σ \ { [(0)
 
 **Property 4.3 (Count of Survivor Classes):**
 The number `N(n)` of survivor classes `[S] ∈ Σ` having minimal period `n` appears to be given by:
-* `N(1) = 2` (for classes `[(0)ʷ]` and `[(1)ʷ]`)
+* `N(1) = 2`
 * `N(n) = φ(n)` for `n ≥ 2`, where `φ` is Euler's totient function.
-*(Justification requires formal proof linking Def 4.1 to properties counted by `φ(n)`).*
+*(Justification requires formal proof).*
 
 **Property 4.4 (Generation Mechanism):**
-The set `Σ'` can be generated recursively via a process equivalent to the Stern-Brocot tree construction using mediants applied to the parameters `(k, count(pred))`. This structure naturally yields pairs satisfying coprimality conditions related to `φ(n)`.
+The set `Σ'` can be generated recursively via a process equivalent to the Stern-Brocot tree construction using mediants applied to the parameters `(k, count(pred))`.
 
 **Property 4.5 (Canonical Representation):**
-Each class `[S] ∈ Σ'` can be represented by a unique canonical string. If `a` is the predominant digit and `b` the non-predominant, the string starts with `a`, is followed by the pattern `(ab)` repeated `k` times, and concludes with the remaining `n_a - k` instances of `a` appended (where `n_a = count(pred)`).
+Each class `[S] ∈ Σ'` can be represented by a unique canonical string determined by its parameters `n, k, n0, n1`.
 
 ## 5. The Rational Projection Map (`φ'`)
 
@@ -63,29 +63,25 @@ The **Rational Projection Map** `φ'` maps survivor classes with period `n ≥ 2
 where `Σ' = Σ \ { [(0)ʷ], [(1)ʷ] }`.
 
 **Definition 5.2 (Formula):**
-For any survivor class `[S] ∈ Σ'` (so `n ≥ 2` and `k ≥ 1`), let `n0, n1, k` be parameters derived from the minimal period `n`. Calculate the difference `Δ = n0 - n1`. The map is defined as:
-* If `Δ ≥ 0` (i.e., 0 is predominant or `n0=n1`):
-    `φ'([S]) = Δ / k`
-* If `Δ < 0` (i.e., 1 is predominant):
-    `φ'([S]) = k / Δ`
+For any survivor class `[S] ∈ Σ'` (`n ≥ 2`, `k ≥ 1`), let `n0, n1, k` be parameters derived from the minimal period `n`. Calculate `Δ = n0 - n1`. The map is defined as:
+* If `Δ ≥ 0` (0 is predominant or tied): `φ'([S]) = Δ / k`
+* If `Δ < 0` (1 is predominant):         `φ'([S]) = k / Δ`
 
-*(Note: This yields `φ'([(01)ʷ]) = 0`.)*
+*(This yields `φ'([(01)ʷ]) = 0`.)*
 
 **Definition 5.3 (Handling `n=1` Cases):**
-The classes `[(0)ʷ]` and `[(1)ʷ]` are outside the domain of `φ'`. Conceptually, they correspond to the single point at infinity (`∞`) in the projective rational line `Q P¹`. Specific geometric visualizations must define how these two classes are represented.
+The classes `[(0)ʷ]` and `[(1)ʷ]` are outside the domain of `φ'`. Conceptually, they correspond to the single point at infinity (`∞`) in `Q P¹`.
 
 **Property 5.4 (Complementation Symmetry):**
-Let `τ(S)` denote the complementary sequence where 0s and 1s are swapped. If `[S] ∈ Σ'` and `φ'([S]) ≠ 0`, then `[τ(S)] ∈ Σ'` and the map satisfies:
-`φ'([τ(S)]) = -1 / φ'([S])`
-*(Note: If `φ'([S]) = 0`, which occurs for `[S]=[01]`, then `[τ(S)]=[S]`. The symmetry holds projectively).*
+Let `τ(S)` be the complementary sequence (0s↔1s). If `[S] ∈ Σ'` and `φ'([S]) ≠ 0`, then `[τ(S)] ∈ Σ'` and `φ'([τ(S)]) = -1 / φ'([S])`.
 
-**Property 5.5 (Bijection Status):**
+**Property 5.5 (Bijection Conjecture):**
 The map `φ': Σ' -> Q` is **conjectured** to be a **bijection**. *(Proving this formally is Goal #1).*
 
 ## 6. Harmonic Ratios
 
 **Definition 6.1 (Harmonic Ratios):**
-For any survivor class `[S] ∈ Σ'` (so `n ≥ 2` and `t = 2k > 0`):
+For any survivor class `[S] ∈ Σ'` (`n ≥ 2`, `t = 2k > 0`):
 * `r₁' = n0 / t`
 * `r₂' = n1 / t`
 * `r₃' = n / t`
@@ -98,29 +94,23 @@ The rational projection `r = φ'([S])` is related to the harmonic ratios by:
 * If `r₁' ≥ r₂'` (`Δ ≥ 0`): `φ'([S]) = 2 (r₁' - r₂')`
 * If `r₂' > r₁'` (`Δ < 0`): `φ'([S]) = 1 / (2 (r₁' - r₂'))`
 
-## 7. Preliminary Answers and Implications for Goals
-
-This section addresses the immediate goals for the framework based on the definitions established above.
+## 7. Immediate Goals and Geometric Interpretation
 
 **7.1 Goal 1: Prove `φ': Σ' -> Q` is a bijection.**
-* **Status:** Conjectured. Formal proof required.
-* **Plausibility:**
-    * *Injectivity:* Seems likely for `r ∈ Q`. Given `r ≠ 0`, the sign determines predominance, and the value `|r|` likely determines the coprime pair `(k, |Δ|)` uniquely via the formula `|r|=|Δ|/k` or `|r|=k/|Δ|` (assuming `gcd(k, |Δ|) = 1` follows from the survivor condition). This pair `(k, |Δ|)`, plus predominance, should uniquely define the class `[S]` via the Stern-Brocot generation.
-    * *Surjectivity:* Seems likely. The Stern-Brocot process generates all coprime parameter pairs `(k, n_a)`. Showing that the map `(k, n_a) -> r = φ'([S])` covers all of `Q` requires demonstrating that appropriate pre-image parameters can always be found, potentially via construction algorithms.
-* **Note:** If extended to `φ'_{ext}: Σ -> Q P¹` by assigning `∞` to `[0]` and `[1]`, the map is surjective onto `Q P¹` but not injective at `∞`.
+* **Status:** Conjectured. Requires formal proof.
 
 **7.2 Goal 2: Prove the count `N(n)` (`N(1)=2, N(n)=φ(n)` for `n>=2`).**
-* **Status:** Conjectured based on empirical data and generation mechanism. Formal proof required.
-* **Plausibility:** The proof likely involves demonstrating that the survivor condition `gcd(k, max(n0,n1))=1` for minimal period `n` is equivalent to selecting the `φ(n)` classes corresponding to coprime parameter pairs `(k, n_a)` or `(k, n_b)` generated by the Stern-Brocot process where the period `n` equals `k+n_a` or `k+n_b`. This connects the definition to fundamental properties counted by `φ(n)`.
+* **Status:** Conjectured. Requires formal proof.
 
-**7.3 Goal 3: Establish relationship between `φ'` and harmonic ratios.**
-* **Status:** **Answered.**
-* **Result:** Property 6.3 gives the explicit formulas. `φ'([S])` is proportional to the difference `r₁' - r₂'` or its reciprocal, linking the projection value to the relative imbalance `n0-n1` scaled by the total transition count `t=2k`. The formulas are consistent with the `r -> -1/r` symmetry.
+**7.3 Goal 3: Relationship between `φ'` and harmonic ratios.**
+* **Status:** **Established.** Property 6.3 gives the explicit relationship.
 
-**7.4 Goal 4: Develop geometric projections based on `φ'` and handle `[0],[1]`.**
-* **Status:** Requires explicit development.
-* **Next Steps:** Define geometric projection maps (`ψ` for circle/semicircle, `ψ₄` for double-cover, hyperbolic boundary `ψ_ext`, spinor `ξ`, etc.). These maps will take `r = φ'([S])` for `[S] ∈ Σ'` as input and convert it to coordinates (e.g., angles, points on sphere/disk). Explicit rules must be defined for representing the classes `[0]` and `[1]` (corresponding to `∞`) within each specific visualization (e.g., North/South poles, points `1`/`-1`, points `(0,1)`/`(0,-1)`).
-
-## 8. Summary of Foundational Status
-
-The framework's core objects (`Σ`) and their count (`N(n)`) are consistently defined and appear well-motivated by number theory (`φ(n)`) and combinatorial generation (Stern-Brocot). The Rational Projection map (`φ'`) is now explicitly defined for the main set `Σ'`, satisfying key symmetry properties and relating directly to harmonic ratios. The immediate next steps involve the rigorous proofs of the bijection `φ': Σ' -> Q` and the count `N(n)`, followed by the explicit definition and analysis of the geometric projections.
+**7.4 Goal 4: Geometric Interpretation and Projection.**
+* **Status:** Requires development.
+* **Immediate Geometric Interpretation:** The map `φ'` maps `Σ'` onto `Q`.
+* **Primary Visualization (Semicircle Concept):** The primary visualization represents all values `r = φ'([S]) ∈ Q` on **one semicircle** (e.g., the right-hand semicircle, angles `-π/2` to `π/2`).
+    * The endpoints represent `r=0` (`[01]`) (e.g., angle 0) and `r=∞` (conceptually `[0]`, `[1]`) (e.g., angle `π/2`).
+    * Values `r > 0` (0-predominant) map to the **top-right quarter** (e.g., angles `(0, π/2)`).
+    * Values `r < 0` (1-predominant) map to the **bottom-right quarter** (e.g., angles `(-π/2, 0)`).
+    * This single semicircle visualization therefore encodes all classes in `Σ'`, partitioning the representation into **two quarters** based on the sign of `r` (predominance).
+* **Next Step:** Define an explicit primary geometric projection map (e.g., `ψ: Σ -> S¹` or a semicircle) that implements this specific visualization (mapping all `r ∈ Q` to the chosen semicircle arc and defining representations for `[0]` and `[1]`). Other projections (like a double-cover map) are separate concepts for later development.
