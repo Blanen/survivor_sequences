@@ -1,4 +1,4 @@
-# Survivor Sequence Framework: Foundational Definitions
+# Survivor Sequence Framework: Foundational Definitions (Review Version)
 
 ## 1. Overview
 
@@ -17,16 +17,13 @@ Two periodic sequences `S₁` and `S₂` are **equivalent**, denoted `S₁ ~ S�
 
 ## 3. Sequence Parameters (Derived from Minimal Period)
 
-All parameters for a class `[S]` are calculated using its unique minimal period `n` and a representative minimal period string `s = (b₁, ..., bₙ)`.
-
-**Definition 3.1 (Counts):**
+All parameters for a class `[S]` are calculated using its unique minimal period `n` and a representative minimal period string `s = (b₁, ..., bₙ)`. **Definition 3.1 (Counts):**
 * `n = per(S)`: Minimal period length (`n ≥ 1`).
 * `n0`: Count of `0`s in the string `s`.
 * `n1`: Count of `1`s in the string `s`. Note: `n0 + n1 = n`.
 
 **Definition 3.2 (Transition Counts):**
-* `k = count(01)`: Count of `0 -> 1` transitions in `s`, including the wrap-around transition `bₙ -> b₁`. `k ≥ 0`. For `n > 1`, `k` equals the count of `1 -> 0` transitions.
-* `t = count(01) + count(10)`: Total number of transitions. `t = 2k` if `n > 1`; `t = 0` if `n = 1`.
+* `k = count(01)`: Count of `0 -> 1` transitions in `s`, including the wrap-around transition `bₙ -> b₁`. `k ≥ 0`. For `n > 1`, `k` equals the count of `1 -> 0` transitions. * `t = count(01) + count(10)`: Total number of transitions. `t = 2k` if `n > 1`; `t = 0` if `n = 1`.
 
 **Definition 3.3 (Predominant Digit):**
 * The **predominant digit** `a` is defined as `0` if `n0 ≥ n1`, and `1` if `n1 > n0`.
@@ -43,18 +40,16 @@ An equivalence class `[S]` is a **Survivor Sequence Class** if its minimal perio
 **Definition 4.2 (Set of Survivors):**
 Let `Σ` denote the set of all Survivor Sequence Classes. Let `Σ' = Σ \ { [(0)ʷ], [(1)ʷ] }` be the subset with period `n ≥ 2`.
 
-**Property 4.3 (Count of Survivor Classes):**
-The number `N(n)` of survivor classes `[S] ∈ Σ` having minimal period `n` appears to be given by:
+**Property 4.3 (Count of Survivor Classes):** The number `N(n)` of survivor classes `[S] ∈ Σ` having minimal period `n` appears to be given by:
 * `N(1) = 2`
 * `N(n) = φ(n)` for `n ≥ 2`, where `φ` is Euler's totient function.
 *(Justification requires formal proof).*
 
-**Property 4.4 (Generation Mechanism):**
-The set `Σ'` can be generated recursively via a process equivalent to the Stern-Brocot tree construction using mediants applied to the parameters `(k, count(pred))`.
-
-**Property 4.5 (Canonical Representation):**
-Each class `[S] ∈ Σ'` can be represented by a unique canonical string determined by its parameters `n, k, n0, n1`.
-
+**Property 4.4 (Generation Mechanism):** The set `Σ'` can be generated recursively via a process equivalent to the Stern-Brocot tree construction using mediants applied to the parameters `(k, count(pred))`. **Definition 4.5 (Canonical Representation Rule):** For any equivalence class `[S] ∈ Σ'` (`n ≥ 2`), its **canonical representation** is the unique minimal period string `s*` obtained as follows:
+1.  Consider all `n` distinct cyclic shifts `s'` of any minimal period string `s` belonging to `[S]`.
+2.  For each shift `s'`, determine the length `L(s')` of its longest initial alternating prefix (i.e., the longest prefix of the form `0101...` or `1010...`).
+3.  Identify the set `S_max` of all shifts `s''` for which `L(s'')` is maximal.
+4.  The canonical representation `s*` is the lexicographically smallest string within the set `S_max`.
 ## 5. The Rational Projection Map (`φ'`)
 
 **Definition 5.1 (Domain and Codomain):**
@@ -65,18 +60,14 @@ where `Σ' = Σ \ { [(0)ʷ], [(1)ʷ] }`.
 **Definition 5.2 (Formula):**
 For any survivor class `[S] ∈ Σ'` (`n ≥ 2`, `k ≥ 1`), let `n0, n1, k` be parameters derived from the minimal period `n`. Calculate `Δ = n0 - n1`. The map is defined as:
 * If `Δ ≥ 0` (0 is predominant or tied): `φ'([S]) = Δ / k`
-* If `Δ < 0` (1 is predominant):         `φ'([S]) = k / Δ`
+* If `Δ < 0` (1 is predominant):       `φ'([S]) = k / Δ`
 
 *(This yields `φ'([(01)ʷ]) = 0`.)*
 
 **Definition 5.3 (Handling `n=1` Cases):**
 The classes `[(0)ʷ]` and `[(1)ʷ]` are outside the domain of `φ'`. Conceptually, they correspond to the single point at infinity (`∞`) in `Q P¹`.
 
-**Property 5.4 (Complementation Symmetry):**
-Let `τ(S)` be the complementary sequence (0s↔1s). If `[S] ∈ Σ'` and `φ'([S]) ≠ 0`, then `[τ(S)] ∈ Σ'` and `φ'([τ(S)]) = -1 / φ'([S])`.
-
-**Property 5.5 (Bijection Conjecture):**
-The map `φ': Σ' -> Q` is **conjectured** to be a **bijection**. *(Proving this formally is Goal #1).*
+**Property 5.4 (Complementation Symmetry):** Let `τ(S)` be the complementary sequence (0s↔1s). If `[S] ∈ Σ'` and `φ'([S]) ≠ 0`, then `[τ(S)] ∈ Σ'` and `φ'([τ(S)]) = -1 / φ'([S])`. **Property 5.5 (Bijection Conjecture):** The map `φ': Σ' -> Q` is **conjectured** to be a **bijection**. *(Proving this formally is Goal #1).*
 
 ## 6. Harmonic Ratios
 
@@ -86,11 +77,9 @@ For any survivor class `[S] ∈ Σ'` (`n ≥ 2`, `t = 2k > 0`):
 * `r₂' = n1 / t`
 * `r₃' = n / t`
 
-**Property 6.2 (Harmonic Relation):**
-These intrinsic ratios satisfy the linear relation: `r₁' + r₂' = r₃'`.
+**Property 6.2 (Harmonic Relation):** These intrinsic ratios satisfy the linear relation: `r₁' + r₂' = r₃'`.
 
-**Property 6.3 (Relation to `φ'`):**
-The rational projection `r = φ'([S])` is related to the harmonic ratios by:
+**Property 6.3 (Relation to `φ'`):** The rational projection `r = φ'([S])` is related to the harmonic ratios by:
 * If `r₁' ≥ r₂'` (`Δ ≥ 0`): `φ'([S]) = 2 (r₁' - r₂')`
 * If `r₂' > r₁'` (`Δ < 0`): `φ'([S]) = 1 / (2 (r₁' - r₂'))`
 
@@ -109,8 +98,8 @@ The rational projection `r = φ'([S])` is related to the harmonic ratios by:
 * **Status:** Requires development.
 * **Immediate Geometric Interpretation:** The map `φ'` maps `Σ'` onto `Q`.
 * **Primary Visualization (Semicircle Concept):** The primary visualization represents all values `r = φ'([S]) ∈ Q` on **one semicircle** (e.g., the right-hand semicircle, angles `-π/2` to `π/2`).
-    * The endpoints represent `r=0` (`[01]`) (e.g., angle 0) and `r=∞` (conceptually `[0]`, `[1]`) (e.g., angle `π/2`).
+    * The endpoints represent `r=0` (`[01]ʷ`) (e.g., angle 0) and `r=∞` (conceptually `[0]ʷ`, `[1]ʷ`) (e.g., angle `π/2`).
     * Values `r > 0` (0-predominant) map to the **top-right quarter** (e.g., angles `(0, π/2)`).
     * Values `r < 0` (1-predominant) map to the **bottom-right quarter** (e.g., angles `(-π/2, 0)`).
     * This single semicircle visualization therefore encodes all classes in `Σ'`, partitioning the representation into **two quarters** based on the sign of `r` (predominance).
-* **Next Step:** Define an explicit primary geometric projection map (e.g., `ψ: Σ -> S¹` or a semicircle) that implements this specific visualization (mapping all `r ∈ Q` to the chosen semicircle arc and defining representations for `[0]` and `[1]`). Other projections (like a double-cover map) are separate concepts for later development.
+* **Next Step:** Define an explicit primary geometric projection map (e.g., `ψ: Σ -> S¹` or a semicircle) that implements this specific visualization (mapping all `r ∈ Q` to the chosen semicircle arc and defining representations for `[0]` and `[1]`). Other projections (like a double-cover map) are separate concepts for later development. 
